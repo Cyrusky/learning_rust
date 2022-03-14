@@ -4,10 +4,9 @@ use std::io;
 
 fn main() {
     println!("Guess the number!");
-    let start = 1;
-    let end = 100;
+    const start: i32 = 1;
+    const end: i32 = 100;
     let secret_number = rand::thread_rng().gen_range(start..=end);
-    println!("The secret number is: {}", secret_number);
     loop {
         println!("Please input the number from {} to {}: ", start, end);
         let mut guess = String::new();
@@ -16,7 +15,13 @@ fn main() {
             .read_line(&mut guess)
             .expect("Faild to read line");
 
-        let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("You input a wrong number that can not be parsed, please retry.");
+                continue;
+            }
+        };
 
         println!("You guessed: {}", guess);
 
