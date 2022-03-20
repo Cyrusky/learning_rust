@@ -4,18 +4,18 @@ use std::io;
 
 fn main() {
     println!("Guess the number!");
-    const start: i32 = 1;
-    const end: i32 = 100;
-    let secret_number = rand::thread_rng().gen_range(start..=end);
+    const START: i32 = 1;
+    const END: i32 = 100;
+    let secret_number = rand::thread_rng().gen_range(START..=END);
     loop {
-        println!("Please input the number from {} to {}: ", start, end);
+        println!("Please input the number from {} to {}: ", START, END);
         let mut guess = String::new();
 
         io::stdin()
             .read_line(&mut guess)
-            .expect("Faild to read line");
+            .expect("Failed to read line");
 
-        let guess: u32 = match guess.trim().parse() {
+        let guess: i32 = match guess.trim().parse() {
             Ok(num) => num,
             Err(_) => {
                 println!("You input a wrong number that can not be parsed, please retry.");
@@ -29,7 +29,7 @@ fn main() {
             Ordering::Less => println!("Too Small!"),
             Ordering::Greater => println!("Too Big!"),
             Ordering::Equal => {
-                println!("Congratulations ! You got the nubmer!");
+                println!("Congratulations ! You got the number!");
                 break;
             }
         }
